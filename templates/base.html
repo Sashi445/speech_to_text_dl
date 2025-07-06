@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Audio Kit{% endblock %}</title>
+    <link
+      href="https://unpkg.com/@webpixels/css/dist/index.css"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bitcount+Grid+Double:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .bitcount-grid-double-mine {
+        font-family: "Bitcount Grid Double", system-ui;
+        font-optical-sizing: auto;
+        font-weight: 300;
+        font-style: light;
+        font-variation-settings: "slnt" 0, "CRSV" 0.5, "ELSH" 0, "ELXP" 0;
+      }
+    </style>
+    {% block head %}{% endblock %}
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom mb-4">
+      <div class="container">
+        <a
+          class="navbar-brand fw-bold bitcount-grid-double-mine display-3"
+          href="/"
+        >
+          AudioKit
+        </a>
+        <div class="collapse navbar-collapse">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/speech-to-text">Speech-to-Text</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/text-translation">Text-Translation</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content Card -->
+    <div class="container my-5">{% block content %}{% endblock %}</div>
+
+    {% block scripts %}{% endblock %}
+  </body>
+</html>

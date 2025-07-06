@@ -1,0 +1,62 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+%}
+
+<h2>AudioKit</h2>
+<p>
+  AudioKit is a platform for audio processing and analysis. It provides a range
+  of tools for audio transcription, translation, and more.
+</p>
+
+<div class="row gap-4">
+  <div class="col col-sm-12 col-md-6 card" style="width: 18rem">
+    <div class="card-body">
+      <h5 class="card-title">Speech-to-Text</h5>
+      <p class="card-text">
+        Convert speech to text using our advanced speech recognition models.
+      </p>
+      <a href="/speech-to-text" class="btn btn-primary">Try Now</a>
+    </div>
+  </div>
+
+  <div class="col col-sm-12 col-md-6 card" style="width: 18rem">
+    <div class="card-body">
+      <h5 class="card-title">Text-Translation</h5>
+      <p class="card-text">
+        Translate text from one language to another using our advanced
+        translation models.
+      </p>
+      <a href="/text-translation" class="btn btn-primary btn-outline"
+        >Try Now</a
+      >
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <h3>Speech-to-Text</h3>
+        <p>
+          Convert speech to text using our advanced speech recognition models.
+        </p>
+        <div class="d-flex justify-content-end">
+          <a href="/speech-to-text" class="btn btn-primary">Try Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <h3>Text-Translation</h3>
+        <p>
+          Translate text from one language to another using our advanced
+          translation models.
+        </p>
+        <div class="d-flex justify-content-end">
+          <a href="/text-translation" class="btn btn-primary">Try Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
