@@ -2,3 +2,7 @@ data/
 .env/
 
 .DS_Store
+
+
+uploads/
+model_weights/

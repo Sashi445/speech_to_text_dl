@@ -1,0 +1,148 @@
+{% extends "base.html" %} {% block title %}Speech-to-Text{% endblock %} {% block
+content %}
+<div class="d-flex flex-column h-100">
+  <!-- Header -->
+  <div class="text-center mb-4">
+    <h1 class="display-6 fw-bold mb-2">Speech-to-Text</h1>
+    <p class="text-muted">
+      Upload an audio file and select a model to transcribe speech to text
+    </p>
+  </div>
+
+  <!-- Upload Form -->
+  <div class="card bg-light border-0 mb-4">
+    <div class="card-body p-4">
+      <form
+        method="POST"
+        enctype="multipart/form-data"
+        class="needs-validation"
+        novalidate
+      >
+        <div class="row g-3">
+          <!-- Model Selection -->
+          <div class="col-md-6">
+            <label for="model_type" class="form-label fw-semibold"
+              >Select Model</label
+            >
+            <select
+              name="model_type"
+              id="model_type"
+              class="form-select form-select-lg"
+              required
+            >
+              <option value="rnn_bi_lstm_ctc">RNN CTC</option>
+              <option value="conformer_ctc">Conformer CTC</option>
+              <option value="rnn_attn_ctc">Transformer</option>
+            </select>
+            <div class="invalid-feedback">Please select a model type.</div>
+          </div>
+
+          <!-- File Upload -->
+          <div class="col-md-6">
+            <label for="file" class="form-label fw-semibold"
+              >Upload Audio File</label
+            >
+            <input
+              type="file"
+              name="file"
+              id="file"
+              class="form-control form-control-lg"
+              accept=".wav,.mp3,.flac,.m4a,.ogg,.aac,.aif,.aiff"
+              required
+            />
+            <div class="invalid-feedback">Please select an audio file.</div>
+            <small class="form-text text-muted">
+              Supported formats: WAV, MP3, FLAC, M4A, OGG, AAC, AIF
+            </small>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="text-center mt-4">
+          <button type="submit" class="btn btn-primary btn-lg px-5">
+            <i class="fas fa-microphone me-2"></i>Transcribe Audio
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Error Messages -->
+  {% if error %}
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <i class="fas fa-exclamation-triangle me-2"></i>
+    {{ error }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  </div>
+  {% endif %}
+
+  <!-- Success Messages -->
+  {% if transcripts %}
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <i class="fas fa-check-circle me-2"></i>
+    Successfully transcribed: {{ filename }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  </div>
+  {% endif %}
+
+  <!-- Transcription Results -->
+  {% if transcripts %}
+  <div class="card border-0 bg-light">
+    <div class="card-header bg-transparent border-0 pb-0">
+      <h5 class="mb-0">
+        <i class="fas fa-file-text me-2"></i>Transcription Results
+      </h5>
+    </div>
+    <div class="card-body">
+      <div class="bg-white rounded p-3 border">
+        <p class="mb-0 fs-5">{{ transcripts }}</p>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Instructions -->
+  {% if not transcripts %}
+  <div class="text-center text-muted mt-5">
+    <i class="fas fa-arrow-up fa-2x mb-3 d-block"></i>
+    <p class="mb-0">Upload an audio file and select a model to get started</p>
+  </div>
+  {% endif %}
+</div>
+{% endblock %} {% block scripts %}
+<script>
+  // Form validation
+  (function () {
+    "use strict";
+    window.addEventListener(
+      "load",
+      function () {
+        var forms = document.getElementsByClassName("needs-validation");
+        var validation = Array.prototype.filter.call(forms, function (form) {
+          form.addEventListener(
+            "submit",
+            function (event) {
+              if (form.checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+              }
+              form.classList.add("was-validated");
+            },
+            false
+          );
+        });
+      },
+      false
+    );
+  })();
+
+  // File input styling
+  document.getElementById("file").addEventListener("change", function (e) {
+    const fileName = e.target.files[0]?.name;
+    if (fileName) {
+      const label = e.target.nextElementSibling;
+      label.textContent = fileName;
+    }
+  });
+</script>
+{% endblock %}
