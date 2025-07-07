@@ -58,6 +58,15 @@ MANIFEST
 *.manifest
 *.spec
 
+# Ignore all tokenizers (json and txt files)
+tokenizers/*.json
+tokenizers/*.txt
+
+# (Optional) Ignore model weights
+model_weights/*.pt
+model_weights/*.pth
+
+
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
@@ -175,6 +184,8 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+
 
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
