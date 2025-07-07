@@ -1,4 +1,76 @@
-{% extends "base.html" %} {% block title %}Text Translation{% endblock %} {%
-block content %}
-<h1>Text Translation</h1>
+{% extends "base.html" %}
+{% block title %}Text Translation{% endblock %}
+{% block content %}
+
+<!-- Heading and Description -->
+<div class="text-center mb-4">
+  <h1 class="fw-bold" style="color:#111;">English to German Translator</h1>
+  <div class="text-muted fs-5">
+    Instantly translate English text to German.
+  </div>
+</div>
+
+<div class="container py-5" style="max-width: 900px;">
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <div class="bg-white rounded-4 p-4 shadow-sm" style="min-height: 350px;">
+        <div class="row g-4 align-items-end">
+          <!-- English Input -->
+          <div class="col-md-6">
+            <label class="form-label fw-bold mb-2" style="color: #111;">
+              <i class="fas fa-language me-1"></i> English
+            </label>
+            <textarea
+              id="input_text"
+              name="input_text"
+              class="form-control form-control-lg"
+              rows="6"
+              placeholder="Enter text"
+              required
+              form="translateForm"
+              style="background: #fff; color: #111;"
+            >{{ input_text or "" }}</textarea>
+          </div>
+          <!-- Arrow/Spacer -->
+          <div class="col-md-1 text-center d-none d-md-flex flex-column justify-content-center align-items-center">
+            <i class="fas fa-arrow-right fa-2x text-secondary mb-2"></i>
+          </div>
+          <!-- German Output -->
+          <div class="col-md-5">
+            <label class="form-label fw-bold mb-2" style="color: #111;">
+              <i class="fas fa-language me-1"></i> German
+            </label>
+            <div class="bg-light border rounded-3 p-3" style="min-height: 152px; color: #111;">
+              <span id="output_text" class="fs-5">
+                {% if translated_text %}{{ translated_text }}{% else %}Translation{% endif %}
+              </span>
+            </div>
+          </div>
+        </div>
+        <form id="translateForm" method="POST" class="mt-4">
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="text-secondary">
+              <i class="fas fa-microphone fa-lg"></i>
+            </span>
+            <button type="submit" class="btn btn-primary px-5 fs-5">
+              <i class="fas fa-arrow-right me-2"></i>Translate
+            </button>
+          </div>
+        </form>
+        {% if error %}
+        <div class="alert alert-danger mt-4 mb-0 py-2 px-3" role="alert">
+          {{ error }}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  // Autofocus on input box for convenience
+  document.getElementById("input_text").focus();
+</script>
 {% endblock %}
