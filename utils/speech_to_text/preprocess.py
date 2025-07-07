@@ -8,7 +8,7 @@ IDX2CHAR = {i: c for c, i in CHAR2IDX.items()}
 def text_to_indices(text):
     return [CHAR2IDX[c] for c in text.lower() if c in CHAR2IDX]
 
-def greedy_decode(log_probs):
+def greedy_decode(log_probs, cc=False):
     best_path = torch.argmax(log_probs, dim=-1)
     transcripts = []
     for seq in best_path:
@@ -20,6 +20,10 @@ def greedy_decode(log_probs):
                 tokens.append(IDX2CHAR[idx])
             prev = idx
         transcripts.append("".join(tokens))
+
+    if cc:
+        return "".join(transcripts)
+
     return transcripts
 
 mel_transform = MelSpectrogram(
