@@ -1,5 +1,3 @@
-# /utils/text_translation/preprocess.py
-
 import torch
 import torch.nn as nn
 from tokenizers import ByteLevelBPETokenizer
@@ -43,17 +41,25 @@ class TransformerModel(nn.Module):
         return self.generator(out)
 
 class TranslationPreprocessor:
-    def __init__(self, base_dir):
+    def __init__(self):
+        # Always resolve paths relative to the root of your project
+        project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        tokenizer_dir = os.path.join(project_root, 'tokenizers')
+        model_path = os.path.join(project_root, 'model_weights', 'best_transformer_model_bleu.pt')
+
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-        self.model_path = os.path.join(base_dir, "best_transformer_model_bleu.pt")
+
+        # Load English tokenizer
         self.en_tokenizer = ByteLevelBPETokenizer(
-            os.path.join(base_dir, "en_tokenizer-vocab.json"),
-            os.path.join(base_dir, "en_tokenizer-merges.txt")
+            os.path.join(tokenizer_dir, "en_tokenizer-vocab.json"),
+            os.path.join(tokenizer_dir, "en_tokenizer-merges.txt")
         )
+        # Load German tokenizer
         self.de_tokenizer = ByteLevelBPETokenizer(
-            os.path.join(base_dir, "de_tokenizer-vocab.json"),
-            os.path.join(base_dir, "de_tokenizer-merges.txt")
+            os.path.join(tokenizer_dir, "de_tokenizer-vocab.json"),
+            os.path.join(tokenizer_dir, "de_tokenizer-merges.txt")
         )
+        # Special token indices
         self.PAD_IDX_EN = self.en_tokenizer.token_to_id("<pad>")
         self.SOS_IDX_EN = self.en_tokenizer.token_to_id("<sos>")
         self.EOS_IDX_EN = self.en_tokenizer.token_to_id("<eos>")
@@ -67,15 +73,18 @@ class TranslationPreprocessor:
             self.PAD_IDX_DE, self.SOS_IDX_DE, self.EOS_IDX_DE, self.UNK_IDX_DE
         ]):
             raise ValueError("Special tokens missing in tokenizer.")
+
+        # Load Transformer model
         self.model = TransformerModel(
             len(self.en_tokenizer.get_vocab()), 
             len(self.de_tokenizer.get_vocab()),
             pad_idx_en=self.PAD_IDX_EN,
             pad_idx_de=self.PAD_IDX_DE
         ).to(self.device)
-        if not os.path.exists(self.model_path):
-            raise FileNotFoundError("Model not found.")
-        self.model.load_state_dict(torch.load(self.model_path, map_location=self.device))
+
+        if not os.path.exists(model_path):
+            raise FileNotFoundError(f"Model not found at {model_path}")
+        self.model.load_state_dict(torch.load(model_path, map_location=self.device))
         self.model.eval()
 
     def _encode_bpe(self, text, tokenizer, sos_idx, eos_idx, max_len=MAX_LEN):
