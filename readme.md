@@ -8,8 +8,8 @@ The speech-to-text ($\text{ASR}$) system utilizes a combination of models and de
 
 The system employs two primary models based on the Connectionist Temporal Classification ($\text{CTC}$) architecture for alignment-free decoding.
 
-- **$\text{RNN + CTC}$**: Uses **Sequential modeling** with $\text{RNN}$s with $\text{CTC}$ for alignment-free decoding.
-- **$\text{Conformer + CTC}$**: Combines **$\text{CNN}$s and $\text{Transformer}$s** for better feature learning and decoding with $\text{CTC}$.
+- **$\text{RNN + CTC}$**: Uses **Sequential modeling** with $\text{RNNs}$ with $\text{CTC}$ for alignment-free decoding.
+- **$\text{Conformer + CTC}$**: Combines **$\text{CNNs}$ and $\text{Transformers}$** for better feature learning and decoding with $\text{CTC}$.
 
 ---
 
@@ -87,9 +87,9 @@ Translation quality was measured using the $\text{BLEU Score}$ (higher is better
 
 | Methods                                      | Test $\text{BLEU Score}$ | Translation quality                                                        |
 | :------------------------------------------- | :----------------------- | :------------------------------------------------------------------------- |
-| **Vanilla $\text{Seq2Seq}$**                 | $\sim$4                  | poor translations                                                          |
-| **$\text{Seq2Seq}$ with $\text{Attention}$** | $\sim$12                 | predictions are short, repetitive, and contains many $\text{<unk>}$ tokens |
-| **$\text{Transformer}$**                     | $\sim$22                 | **Fluent, accurate, close to reference**                                   |
+| **Vanilla $\text{Seq2Seq}$**                 | $\sim$ 4                 | poor translations                                                          |
+| **$\text{Seq2Seq}$ with $\text{Attention}$** | $\sim$ 12                | predictions are short, repetitive, and contains many $\text{<unk>}$ tokens |
+| **$\text{Transformer}$**                     | $\sim$ 22                | **Fluent, accurate, close to reference**                                   |
 
 | Training                            | Validation                            |
 | :---------------------------------- | :------------------------------------ |
