@@ -3,6 +3,9 @@ data/
 
 .DS_Store
 
+# Ignore Python cache folders everywhere
+**/__pycache__/
+
 
 uploads/
 model_weights/
@@ -57,6 +60,15 @@ MANIFEST
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
 *.manifest
 *.spec
+
+# Ignore all tokenizers (json and txt files)
+tokenizers/*.json
+tokenizers/*.txt
+
+# (Optional) Ignore model weights
+model_weights/*.pt
+model_weights/*.pth
+
 
 # Installer logs
 pip-log.txt
@@ -175,6 +187,8 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+
 
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
